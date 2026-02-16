@@ -4,8 +4,13 @@ import json
 def load_todo():
     try:
         with open('./todo.json', 'r') as file:
-            return json.load(file)
+            todos = json.load(file)
+            if not isinstance(todos, list):
+                print("Invalid todo list format. Using an empty list.")
+                return []
+            return todos
     except FileNotFoundError:
+        print("No tasks found. Starting with an empty list.")
         return []
 
 def save_todo(todos):
@@ -17,7 +22,7 @@ def add_task(task):
     if task in todos:
         print("Task already exists.")
     else:
-        todos.append(task)
+        todos.append(task)  # Ensure todos is a list before appending
         save_todo(todos)
         print("Task added successfully.")
 
