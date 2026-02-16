@@ -1,9 +1,9 @@
-
 import json
+
 
 def load_todo():
     try:
-        with open('./todo.json', 'r') as file:
+        with open("./todo.json", "r") as file:
             todos = json.load(file)
             if not isinstance(todos, list):
                 print("Invalid todo list format. Using an empty list.")
@@ -13,9 +13,11 @@ def load_todo():
         print("No tasks found. Starting with an empty list.")
         return []
 
+
 def save_todo(todos):
-    with open('./todo.json', 'w') as file:
+    with open("./todo.json", "w") as file:
         json.dump(todos, file, indent=4)
+
 
 def add_task(task):
     todos = load_todo()
@@ -26,6 +28,7 @@ def add_task(task):
         save_todo(todos)
         print("Task added successfully.")
 
+
 def list_tasks():
     todos = load_todo()
     if not todos:
@@ -34,6 +37,7 @@ def list_tasks():
         print("Current Tasks:")
         for index, task in enumerate(todos, start=1):
             print(f"{index}. {task}")
+
 
 def mark_done(task_index):
     todos = load_todo()
@@ -48,23 +52,29 @@ def mark_done(task_index):
     except ValueError:
         print("Please enter a valid number.")
 
+
 def main():
     while True:
-        user_input = input("\nEnter 'add', 'list', or 'done' (or 'exit' to quit): ").strip().lower()
-        
-        if user_input == 'exit':
+        user_input = (
+            input("\nEnter 'add', 'list', or 'done' (or 'exit' to quit): ")
+            .strip()
+            .lower()
+        )
+
+        if user_input == "exit":
             break
-        
-        if user_input == 'add':
+
+        if user_input == "add":
             task = input("Enter the task: ")
             add_task(task)
-        elif user_input == 'list':
+        elif user_input == "list":
             list_tasks()
-        elif user_input == 'done':
+        elif user_input == "done":
             task_index = input("Enter the task index to mark as done: ")
             mark_done(task_index)
         else:
             print("Invalid command. Please try again.")
+
 
 if __name__ == "__main__":
     main()
